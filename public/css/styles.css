@@ -1,6 +1,97 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Lato&family=Noto+Serif&family=Poppins:wght@300&family=Roboto&display=swap');
+
+.siteName a {
+  font-family: "Hedvig Letters Serif", sans-serif;
+  color:  rgb(57, 55, 55);
+  text-decoration: none;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: bolder;
+  /* make the font bold somehow */
+
 }
+#tools a{
+  font-family: "Hedvig Letters Serif", sans-serif;
+  color:  rgb(57, 55, 55);
+  text-decoration: none;
+  text-align: right;
+  font-style: normal;
+}
+header {
+    font-family: "Hedvig Letters Serif", sans-serif;
+    color: black;
+    width: 100%;
+    height: 75px;
+    font-size: 1rem;
+    font-style: italic;
+    padding-top: 5px;
+    text-align: left;
+}
+nav {
+  font-family: "Hedvig Letters Serif", sans-serif;
+  background-color: rgb(57, 55, 55);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  
+}
+nav ul {
+  display: flex;
+  margin: 0;
+  flex: 1;
+  justify-content: space-around;
+}
+nav ul li {
+
+  list-style: none;
+  
+}
+nav ul li a{
+  padding: 1rem;
+  text-decoration: none;
+  color: white;
+}
+main {
+  font-family: "Hedvig Letters Serif", sans-serif;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.delorean {
+  background-color: transparent;
+  color: rgb(188, 1, 1);
+}
+.delorean button {
+  background-color: rgb(188, 1, 1);
+  color: white;
+}
+.upgrades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  background-color: white;
+  
+  
+}
+.upgrades div img {
+  border: solid rgb(57, 55, 55);
+  border-radius: 4px;
+  padding: 5px;
+  background-color: white;
+}
+.upgrades div{
+  background-color: rgb(188, 1, 1);
+  justify-self: center;
+  padding: 20px;
+}
+.upgrades div a{
+  color: white;
+  text-align: center;
+}
+#first {
+  grid-column: 1;
+}
+#second{
+  grid-column: 2;
+}
+

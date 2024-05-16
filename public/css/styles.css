@@ -65,15 +65,53 @@ main {
   background-color: rgb(188, 1, 1);
   color: white;
 }
+.delorean {
+  position: absolute;
+  z-index: 1;
+  background-color: rgb(232, 232, 232, 0.5);
+  padding: 20px;
+}
+
+.picture-container {
+  position: relative;
+}
+
+picture {
+  position: relative;
+}
+
+body {
+  position: relative;
+}
+
+/* Adjust the positioning for different screen sizes */
+@media (max-width: 768px) {
+  .delorean {
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 500px) {
+  .delorean {
+      top: 200px;
+      left: 100px;
+  }
+}
+
+
 .upgrades {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 10px;
   background-color: white;
   
-  
 }
-.upgrades div img {
+.reviews {
+  grid-column: 1;
+}
+#first img, #second img, #third img, #fourth img {
   border: solid rgb(57, 55, 55);
   border-radius: 4px;
   padding: 5px;
@@ -82,7 +120,8 @@ main {
 .upgrades div{
   background-color: rgb(188, 1, 1);
   justify-self: center;
-  padding: 20px;
+  padding: 10px;
+  width: 50%;
 }
 .upgrades div a{
   color: white;

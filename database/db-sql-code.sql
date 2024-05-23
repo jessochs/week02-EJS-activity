@@ -6,7 +6,7 @@ CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
-    OWNER TO practice;
+    OWNER TO cse340;
 
 -- Table structure for table 'classification'
 CREATE TABLE public.classification (
@@ -241,4 +241,14 @@ VALUES   (
     'White',
     5
   );
-  
+
+-- 4. Modify the "GM Hummer" record to read 
+-- "a huge interior" rather than "small interiors" using a single query.
+UPDATE public.inventory
+SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
+WHERE inv_id = 10;
+
+-- 6. Update all records
+UPDATE public.inventory
+SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
+    inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');

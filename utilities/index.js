@@ -57,12 +57,36 @@ Util.buildClassificationGrid = async function(data){
   return grid
 };
 
+/* **************************************
+* Build the vehicle details view HTML
+* ************************************ */
+Util.buildVehicleDetail = async function (vehicle){
+  if(!vehicle) {
+    return '<p class="whoops">Vehicle not found!</p>'
+  }
+
+  const priceFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price);
+  const milesFormat = new Intl.NumberFormat('en-US').format(vehicle.inv_miles);
+
+  return `
+    <section class="vehicle-details">
+    <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
+    <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+    <h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3>
+    <p>Description: ${vehicle.inv_description}</p>
+    <p>Price: ${priceFormat}</p>
+    <p>Color: ${vehicle.inv_color}</p>
+    <p>Miles: ${milesFormat}</p>
+    </section>
+    `
+
+} 
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
-
 
 module.exports = Util

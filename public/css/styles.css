@@ -135,4 +135,53 @@ body {
 #second{
   grid-column: 2;
 }
+/* inventory pages */
 
+#inv-display {
+  display: grid;
+  grid-template-columns:1fr 1fr ;
+  flex-wrap: wrap;  
+  padding: 0; 
+  margin: 0; 
+  list-style: none; 
+  font-family: "Hedvig Letters Serif", sans-serif;
+}
+
+
+#inv-display li {
+    flex: 1 1 calc(33.333% - 20px); 
+    box-sizing: border-box; 
+    margin: 10px; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    border: 1px solid #ccc;
+    padding: 10px; 
+}
+
+#inv-display li img {
+    max-width: 100%; 
+    height: auto; 
+}
+
+#inv-display .namePrice {
+    text-align: center; 
+    width: 100%; 
+}
+
+#inv-display .namePrice hr {
+    width: 100%; 
+}
+
+#inv-display .namePrice h2 {
+    margin: 10px 0; 
+}
+
+#inv-display .namePrice span {
+    font-weight: bold; 
+    color: #333; 
+}
+#inv-display a {
+  text-decoration: none;
+  color: black;
+}

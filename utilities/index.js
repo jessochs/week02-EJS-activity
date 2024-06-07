@@ -60,25 +60,36 @@ Util.buildClassificationGrid = async function(data){
 /* **************************************
 * Build the vehicle details view HTML
 * ************************************ */
-Util.buildVehicleDetail = async function (vehicle){
-  if(!vehicle) {
+Util.buildVehicleDetail = async function (data){
+  let detail
+  if(data) {
+    detail+= '<p>Vehicle Infor!</p>'
+    detail+= data[0].inv_image
+    // detail+= img src="' + data[0].inv_thumbnail +'" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model +' on CSE Motors" 
+    
+  }
+  else {
     return '<p class="whoops">Vehicle not found!</p>'
   }
 
-  const priceFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price);
-  const milesFormat = new Intl.NumberFormat('en-US').format(vehicle.inv_miles);
+  // const priceFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[0].inv_price);
+  // const milesFormat = new Intl.NumberFormat('en-US').format(data[0].inv_miles);
 
-  return `
-    <section class="vehicle-details">
-    <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
-    <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
-    <h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3>
-    <p>Description: ${vehicle.inv_description}</p>
-    <p>Price: ${priceFormat}</p>
-    <p>Color: ${vehicle.inv_color}</p>
-    <p>Miles: ${milesFormat}</p>
-    </section>
-    `
+
+  return detail
+    
+
+  // return `
+  //   '<section class="vehicle-details">'
+  //   '<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />'
+  //   '<h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>'
+  //   '<h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3>'
+  //   '<p>Description: ${vehicle.inv_description}</p>'
+  //   '<p>Price: ${priceFormat}</p>'
+  //   /
+  //   '<p>Miles: ${milesFormat}</p>'
+  //   '</section>'
+  //   `
 
 } 
 

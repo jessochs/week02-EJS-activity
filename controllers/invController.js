@@ -23,22 +23,23 @@ invCont.buildByClassificationId = async function (req, res, next) {
  *  Build inventory by single vehicle view
  * ************************** */
 invCont.buildByInventoryId = async function (req, res, next) {
-  const inv_id = req.params.inventoryId
-  const data = await invModel.getVehicleByInventoryId(inv_id)
-  const detail = await utilities.buildVehicleDetail(data);
+  const inv_id = req.params.inventoryId;
+  const data = await invModel.getVehicleByInventoryId(inv_id);
+  
+  // Log the vehicle data to the console for debugging
+  console.log('Vehicle data:', data);
+
+  const detail = await utilities.buildVehicleDetail(data[0]);
   let nav = await utilities.getNav();
-    const make = data[0].inv_make;
-    const model = data[0].inv_model;
-    const year = data[0].inv_year;
-    const classname = year + " " + make + " "+ model;
-    res.render("./inventory/vehicle-details", {
+  const make = data[0].inv_make;
+  const model = data[0].inv_model;
+  const year = data[0].inv_year;
+  const classname = year + " " + make + " " + model;
+  res.render("./inventory/vehicle-details", {
     title: classname,
     nav,
     detail,
-
   });
-  
-  
 };
 
 

@@ -60,38 +60,40 @@ Util.buildClassificationGrid = async function(data){
 /* **************************************
 * Build the vehicle details view HTML
 * ************************************ */
-Util.buildVehicleDetail = async function (data){
-  let detail
-  if(data) {
-    detail+= '<p>Vehicle Infor!</p>'
-    detail+= data[0].inv_image
-    // detail+= img src="' + data[0].inv_thumbnail +'" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model +' on CSE Motors" 
-    
+// Function to build vehicle detail HTML
+Util.buildVehicleDetail = async function(vehicle) {
+  let vehicleDetail = '';
+
+  if (vehicle) {
+    vehicleDetail += '<div class="vehicle-detail">';
+    vehicleDetail += '  <div class="vehicle-image">';
+    vehicleDetail += '    <img src="' + (vehicle.inv_image || '') + '" alt="Image of ' + (vehicle.inv_make || '') + ' ' + (vehicle.inv_model || '') + '" />';
+    vehicleDetail += '  </div>';
+    vehicleDetail += '  <div class="vehicle-info">';
+    vehicleDetail += '    <h2>' + (vehicle.inv_year || '') + ' ' + (vehicle.inv_make || '') + ' ' + (vehicle.inv_model || '') + '</h2>';
+    vehicleDetail += '    <p>Price: $' + new Intl.NumberFormat('en-US').format(Number(vehicle.inv_price) || 0) + '</p>';
+    vehicleDetail += '    <p>Description: ' + (vehicle.inv_description || '') + '</p>';
+    vehicleDetail += '    <p>Color:' +  (vehicle.inv_color) + '</p>';
+    vehicleDetail += '    <p>Mileage: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles || 0) + ' miles</p>';
+    vehicleDetail += '  </div>';
+    vehicleDetail += '</div>';
+  } else {
+    vehicleDetail = '<p class="notice">Sorry, no vehicle details available.</p>';
   }
-  else {
-    return '<p class="whoops">Vehicle not found!</p>'
-  }
 
-  // const priceFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[0].inv_price);
-  // const milesFormat = new Intl.NumberFormat('en-US').format(data[0].inv_miles);
+  return vehicleDetail;
+};
 
 
-  return detail
-    
 
-  // return `
-  //   '<section class="vehicle-details">'
-  //   '<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />'
-  //   '<h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>'
-  //   '<h3>${vehicle.inv_make} ${vehicle.inv_model} Details</h3>'
-  //   '<p>Description: ${vehicle.inv_description}</p>'
-  //   '<p>Price: ${priceFormat}</p>'
-  //   /
-  //   '<p>Miles: ${milesFormat}</p>'
-  //   '</section>'
-  //   `
-
-} 
+// Util.buildVehicleDetail = async function (data){
+//   let detail
+//   detail = `
+//   <h2>Price: ${data.inv_price}</h2>
+  
+//   `
+//   console.log('Vehicle data', detail)
+// }
 
 /* ****************************************
  * Middleware For Handling Errors

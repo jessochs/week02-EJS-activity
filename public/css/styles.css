@@ -185,3 +185,6 @@ body {
   text-decoration: none;
   color: black;
 }
+.vehicle-detail {
+  display: flex;
+}

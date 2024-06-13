@@ -19,17 +19,9 @@ const pool = require('./database/');
 const bodyParser = require("body-parser")
 
 /* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout")
-
-
-/* ***********************
  * Middleware
  * ************************/
- app.use(session({
+app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
     pool,
@@ -49,6 +41,15 @@ app.use(function(req, res, next){
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+/* ***********************
+ * View Engine and Templates
+ *************************/
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout")
+
+
 /* ***********************
  * Routes
  *************************/

@@ -17,16 +17,16 @@
 
 <form action="/account/registration" method="post">
     <label for="fname">First Name</label><br>
-    <input type="text" id="fname" name="fname" required><br>
+    <input type="text" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>">
     <label for="lname">Last Name</label><br>
-    <input type="text" id="lname" name="lname" required><br>
+    <input type="text" name="account_lastname" id="accountLastname" required value="<%= locals.account_lastname %>">
     <label for="email">Email Address</label><br>
-    <input type="email" id="email" name="email" required placeholder="Enter a valid email address"><br>
+    <input type="email" id="email" name="account_email" placeholder="Enter a valid email address" required value="<%= locals.account_email %>">
     <label for="password">Password</label><br>
     <div>
         <p>Password must include at least 12 characters, at least 1 uppercase character, 1 number, and 1 special character.</p>
     </div>
-    <input type="password" id="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
+    <input type="password" id="password" name="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
     <input type="submit" value="Create Account">
 
 </form>

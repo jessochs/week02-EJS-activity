@@ -10,7 +10,11 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 //Route to build single vehile inventory view
 router.get("/detail/:inventoryId", invController.buildByInventoryId);
 
-//route to new classification
+//route to view management
 router.get("/", invController.viewManagement);
+
+//route to add classification
+router.get("/add-classification", invController.addNewClassification);
+router.post("/add-classification", invController.registerNewClassification);
 
 module.exports = router;

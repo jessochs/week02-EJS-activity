@@ -45,7 +45,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
 };
 
 /* ***************************
- *  Management View
+ *  Deliver Management View
  * ************************** */
 
 invCont.viewManagement = async function (req, res, next) {
@@ -60,17 +60,46 @@ invCont.viewManagement = async function (req, res, next) {
 
 
 /* ***************************
- *  Deliver new classificastion view
+ *  Deliver new classification view
  * ************************** */
+invCont.addNewClassification = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  res.render('./inventory/add-classification', {
+    title: "Add New Classification",
+    nav,
+    errors: null,
+  })
+}
 
-// async function buildNewClassification(req, res, next) {
-//   let nav= await utilities.getNav();
-//   res.render('/inv/', {
-//     title: "Add New Classification",
-//     nav,
-//     errors: null,
-//   })
-// }
+/* ***************************
+ *  Process new classification 
+ * ************************** */
+invCont.registerNewClassification = async function (req, res) {
+  let nav = utilities.getNav();
+  const {classification_name} = req.body;
+
+  const classResult = await invModel.registerNewClassification(classification_name)
+
+  if (classResult) {
+    req.flash(
+      "notice",
+      "Classification was successfully added"
+    )
+    res.status(201).render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the new account failed.")
+    res.status(501).render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: null,
+    })
+  }
+}
+
 
 // /* ***************************
 //  *  Deliver new inventory view
@@ -81,39 +110,6 @@ invCont.viewManagement = async function (req, res, next) {
 //     nav,
 //     errors: null,
 //   })
-// }
-
-/* ***************************
- *  Process new classification
- * ************************** */
-
-// async function registerClassification(req, res) {
-//   let nav = await utilities.getNav()
-//   const classification_name = req.body;
-//   // do something here with flash??
-
-//   const classResult = await invModel.registerClassification(
-//     classification_name
-//   )
-
-//   if (classResult) {
-//     req.flash(
-//       "notice",
-//       'The new classification was added.'
-//     )
-//     res.status(201).render("inventory/add-classification", {
-//       title: "Add New CLassification",
-//       nav,
-//       errors: null,
-//     })
-//   } else{
-//     req.flash("notice", "Sorry, the new classification failed.")
-//       res.status(501).render("inventory/add-classification", {
-//         title: "Add New Inventory",
-//         nav,
-//       })
-//   }
-
 // }
 
 

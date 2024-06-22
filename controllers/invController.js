@@ -75,7 +75,7 @@ invCont.addNewClassification = async function (req, res, next) {
  *  Process new classification 
  * ************************** */
 invCont.registerNewClassification = async function (req, res) {
-  let nav = utilities.getNav();
+  let nav = await utilities.getNav();
   const {classification_name} = req.body;
 
   const classResult = await invModel.registerNewClassification(classification_name)
@@ -100,17 +100,59 @@ invCont.registerNewClassification = async function (req, res) {
   }
 }
 
+/* ***************************
+ *  Deliver new inventory view
+ * ************************** */
+invCont.addNewInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-inventory", {
+    title: "Add New Vehicle",
+    nav,
+    errors: null,
+  })
+}
 
-// /* ***************************
-//  *  Deliver new inventory view
-//  * ************************** */
-// async function buildNewInventory(req, res, next) {
-//   res.render('/inv/', {
-//     title: "Add New Inventory",
-//     nav,
-//     errors: null,
-//   })
-// }
+/* ***************************
+ *  Process new inventory 
+ * ************************** */
+
+invCont.registerNewInventory = async function (req, res) {
+  let nav = await utilities.getNav()
+  const {inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id} = req.body;
+
+  const invResult = await invModel.registerNewInventory(
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  )
+
+  if (invResult) {
+    req.flash(
+      "notice",
+      "The new vehicle was added."
+    )
+    res.status(201).render("./inventory/add-inventory", {
+      title: "Add New Vehicle",
+      nav,
+      errors: null
+    })
+  } else {
+    req.flash("notice", "Sorry, the new vehicle registration failed.")
+    res.status(501).render("./inventory/add-inventory", {
+
+      title: "Add New Vehicle",
+      nav,
+      errors:null
+    })
+  }
+}
 
 
 

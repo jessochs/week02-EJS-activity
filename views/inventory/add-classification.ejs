@@ -4,20 +4,10 @@
       res.redirect('/')
     } %>
 
-<!-- Message block  -->
-<%- messages() %>
-
-<% if (errors) { %>
-    <ul class="notice">
-   <% errors.array().forEach(error => { %>
-     <li><%= error.msg %></li>
-  <%  }) %>
-   </ul>
-  <% } %>
 
 
 
-<form action="/inventory/add-classification" method="post" id="new-classification">
+<form action="/inv/add-classification" method="post" id="new-classification">
   <div>
     <p>Name must be alphabetic characters only!</p>
   </div>

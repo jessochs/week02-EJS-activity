@@ -14,11 +14,11 @@ router.get("/detail/:inventoryId", invController.buildByInventoryId);
 router.get("/", invController.viewManagement);
 
 //routes to add classification
-router.get("/add-classification", invController.addNewClassification);
+router.get("/add-classification", utilities.handleErrors(invController.addNewClassification));
 router.post("/add-classification", invController.registerNewClassification);
 
 //routes for adding new inventory
-router.get("/add-inventory", invController.addNewInventory);
+router.get("/add-inventory", utilities.handleErrors(invController.addNewInventory));
 router.post("/add-inventory", invController.registerNewInventory);
 
 module.exports = router;

@@ -21,4 +21,7 @@ router.post("/add-classification", invController.registerNewClassification);
 router.get("/add-inventory", utilities.handleErrors(invController.addNewInventory));
 router.post("/add-inventory", invController.registerNewInventory);
 
+//rout for new get inv js
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 module.exports = router;

@@ -24,4 +24,7 @@ router.post("/add-inventory", invController.registerNewInventory);
 //rout for new get inv js
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
+//edit route
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.editInventory))
+
 module.exports = router;

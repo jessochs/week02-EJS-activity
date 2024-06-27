@@ -252,3 +252,13 @@ WHERE inv_id = 10;
 UPDATE public.inventory
 SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
     inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
+
+-- Update manager and employee access levels
+UPDATE public.account
+SET account_type = 'Employee'
+WHERE account_lastname = 'Employee';
+
+
+UPDATE public.account
+SET account_type = 'Admin'
+WHERE account_lastname = 'User';

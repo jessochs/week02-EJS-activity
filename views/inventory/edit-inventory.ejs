@@ -15,7 +15,7 @@
    </ul>
   <% } %>
 
-<form action="/inventory/edit-inventory" method="post" id="new-inventory">
+<form id="updateForm" action="/inventory/update" method="post" >
     <label for="make">Make: </label><br>
     <input type="text" name="inv_make" id="make" required value="<%= locals.inv_make %>">
     <label for="model">Model: </label><br>
@@ -37,4 +37,7 @@
     <label for="classification">Vehicle Classification: </label><br>
     <input type="text" name="classification_id" id="classificationList" required value="<%= locals.classification_id %>">
     <input type="submit" value="Update Vehicle">
+    <input type="hidden" name="inv_id"
+<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+<% } %>>
 </form>

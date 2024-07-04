@@ -44,11 +44,11 @@ async function getVehicleByInventoryId(inv_id) {
 };
 
 /* ***************************
- *  Register new classification
+ *  Add new classification
  * ************************** */
 async function registerNewClassification(classification_name) {
   try {
-    const sql = "INSERT INTO classification (classification_name) VALUES ($1)"
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
     return await pool.query(sql, [classification_name])
   } catch (error) {
     return error.message
@@ -56,12 +56,36 @@ async function registerNewClassification(classification_name) {
 }
 
 /* ***************************
- *  Register new vehicle 
+ *  Add new vehicle 
  * ************************** */
-async function registerNewInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) {
+async function addVehicle(
+  classification_id, 
+  inv_make, 
+  inv_model, 
+  inv_year, 
+  inv_description, 
+  inv_image, 
+  inv_thumbnail, 
+  inv_price, 
+  inv_miles, 
+  inv_color, 
+) {
   try {
-    const sql = "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
-    return await pool.query(sql, [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id])
+    const sql = 
+    "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING*"
+    const data =  await pool.query(sql, [
+      inv_make, 
+      inv_model, 
+      inv_year, 
+      inv_description, 
+      inv_image, 
+      inv_thumbnail, 
+      inv_price, 
+      inv_miles, 
+      inv_color, 
+      classification_id
+    ])
+    return data.rows[0]
   } catch (error) {
     return error.message
   }
@@ -105,4 +129,4 @@ async function updateInventory(
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleByInventoryId, registerNewClassification, registerNewInventory, updateInventory};
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleByInventoryId, registerNewClassification, addVehicle, updateInventory};

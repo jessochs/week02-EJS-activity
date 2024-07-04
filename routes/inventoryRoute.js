@@ -3,25 +3,26 @@ const utilities = require("../utilities/index")
 const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController");
+const regValidate = require('../utilities/inventory-validation')
 
 // Route to build inventory by classification view
-router.get("/type/:classificationId", invController.buildByClassificationId);
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
 //Route to build single vehile inventory view
-router.get("/detail/:inventoryId", invController.buildByInventoryId);
+router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
 
 //route to view management
-router.get("/", invController.viewManagement);
+router.get("/", utilities.handleErrors(invController.viewManagement));
 
 //routes to add classification
-router.get("/add-classification", utilities.handleErrors(invController.addNewClassification));
-router.post("/add-classification", invController.registerNewClassification);
+router.get("/newClassification", utilities.handleErrors(invController.addNewClassification));
+router.post("/add-classification", regValidate.classificationRules(), regValidate.checkClassificationData, utilities.handleErrors(invController.registerNewClassification));
 
 //routes for adding new inventory
-router.get("/add-inventory", utilities.handleErrors(invController.addNewInventory));
-router.post("/add-inventory", invController.registerNewInventory);
+router.get("/newInventory", utilities.handleErrors(invController.addNewInventory));
+router.post("/add-inventory", regValidate.vehicleRules(), regValidate.checkVehicleData, utilities.handleErrors(invController.addVehicle));
 
-//rout for new get inv js
+//route for new get inv js
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 //edit route

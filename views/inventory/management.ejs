@@ -6,16 +6,28 @@
 
 <%- messages() %> 
 
-<h1>Vehicle Management</h1>
-<div>
-    <a href="/inv/add-inventory">Add New Inventory</a>
-    <a href="/inv/add-classification">Add New Classification</a>
-</div>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<ul class="invList">
+  <li>
+    <a href="/inv/newClassification" title="Click to add a new classification">Add New Classification</a>
+    
+  </li>
+  <li>
+    <a href="/inv/newInventory" title="Click to add new inventory">Add New Vehicle</a>
+  </li>
+</ul>
 
 <h2>Manage Inventory</h2>
 <p>Select a classification from the list</p>
 
-<%- classificationSelect %> 
+<%- classificationList %> 
 
 <table id="inventoryDisplay">
 

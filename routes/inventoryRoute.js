@@ -26,8 +26,13 @@ router.post("/add-inventory", regValidate.vehicleRules(), regValidate.checkVehic
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 //edit route
-router.get("/edit/:inventory_id", utilities.handleErrors(invController.editInventory))
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editVehicle))
 
 //update post route
-router.post("/update/", utilities.handleErrors(invController.updateInventory))
+router.post("/update/", regValidate.vehicleRules(), regValidate.checkVehicleUpdateData, utilities.handleErrors(invController.updateVehicle))
+
+//delete route
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteVehicle))
+router.post("/delete/", utilities.handleErrors(invController.deleteVehicleData) )
+
 module.exports = router;

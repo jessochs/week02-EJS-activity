@@ -15,24 +15,24 @@ router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByI
 router.get("/", utilities.handleErrors(invController.viewManagement));
 
 //routes to add classification
-router.get("/newClassification", utilities.handleErrors(invController.addNewClassification));
+router.get("/newClassification", utilities.checkEmployeeAccess, utilities.handleErrors(invController.addNewClassification));
 router.post("/add-classification", regValidate.classificationRules(), regValidate.checkClassificationData, utilities.handleErrors(invController.registerNewClassification));
 
 //routes for adding new inventory
-router.get("/newInventory", utilities.handleErrors(invController.addNewInventory));
+router.get("/newInventory", utilities.checkEmployeeAccess, utilities.handleErrors(invController.addNewInventory));
 router.post("/add-inventory", regValidate.vehicleRules(), regValidate.checkVehicleData, utilities.handleErrors(invController.addVehicle));
 
 //route for new get inv js
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 //edit route
-router.get("/edit/:inv_id", utilities.handleErrors(invController.editVehicle))
+router.get("/edit/:inv_id", utilities.checkEmployeeAccess, utilities.handleErrors(invController.editVehicle))
 
 //update post route
 router.post("/update/", regValidate.vehicleRules(), regValidate.checkVehicleUpdateData, utilities.handleErrors(invController.updateVehicle))
 
 //delete route
-router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteVehicle))
+router.get("/delete/:inv_id", utilities.checkEmployeeAccess, utilities.handleErrors(invController.deleteVehicle))
 router.post("/delete/", utilities.handleErrors(invController.deleteVehicleData) )
 
 module.exports = router;

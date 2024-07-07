@@ -154,4 +154,28 @@ Util.checkLogin = (req, res, next) => {
   }
  }
 
+/* ****************************************
+ *  Check account access
+ * ************************************ */
+ Util.checkEmployeeAccess = (req, res, next) => {
+  if (res.locals.loggedin) {
+    const account_type = res.locals.accountData.account_type
+    if (account_type == "Admin" || account_type == "Employee") {
+      next()
+    } else {
+      req.flash(
+        "notice",
+        "You do not have the ability to access this page."
+      )
+      res.redirect("account/login")
+    }
+  } else {
+    req.flash(
+      "notice",
+      "You do not have the ability to access this page."
+    )
+    res.redirect("account/login")
+  }
+}
+
 module.exports = Util

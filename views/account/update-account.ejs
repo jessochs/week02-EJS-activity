@@ -16,44 +16,55 @@
                         <% }) %>
                 </ul>
                 <% } %>
+                    <main class="accountChange">
+                        <form id="updateAccount" action="/account/update-account" method="post">
+                            <h4>Update Account Information</h4>
+                            <label for="accountFirstname">First Name</label><br>
+                            <input type="text" name="account_firstname" id="accountFirstname" required minlength="3"
+                                value="<%= locals.account_firstname %>">
 
-                    <form id="updateAccount" action="/account/update-account" method="post">
-                        <title>Update Account</title>
-                        <label for="fname">First Name</label><br>
-                        <input type="text" name="account_firstname" id="accountFirstname" required minlength="3"
-                            value="<%= locals.account_firstname %>">
+                            <label for="accountLastname">Last Name</label><br>
+                            <input type="text" name="account_lastname" id="accountLastname" required minlength="3"
+                                value="<%= locals.account_lastname %>">
 
-                        <label for="lname">Last Name</label><br>
-                        <input type="text" name="account_lastname" id="accountLastname" required minlength="3"
-                            value="<%= locals.account_lastname %>">
+                            <label for="email">Email Address</label><br>
+                            <input type="email" id="email" name="account_email"
+                                placeholder="Enter a valid email address" required value="<%= locals.account_email %>">
 
-                        <label for="email">Email Address</label><br>
-                        <input type="email" id="email" name="account_email" placeholder="Enter a valid email address"
-                            required value="<%= locals.account_email %>">
+                            <button type="submit" disabled>Update Account</button>
+                            <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
+                                locals.account_id %>"
+                                <% } %>>
 
-                        <button type="submit" disabled>Update Account</button>
-                        <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
-                            locals.account_id %>"
-                            <% } %>>
+                        </form>
 
-                    </form>
+                        <form id="updatePassword" action="/account/update-password" method="post">
 
-                    <form id="updatePassword" action="/account/update-password" method="post">
-                        <title>Change Password</title>
-                        <label for="password">Password</label><br>
-                        <div>
-                            <p>Changing your password will change your current one. New password must include at least
-                                12 characters, at least 1 uppercase character, 1 number,
-                                and 1 special character.</p>
-                        </div>
-                        <input type="password" id="password" name="account_password"
-                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
-                        <input type="submit" value="Create Account">
+                            <h4>Change Password</h4>
 
-                        <button type="submit" disabled>Update Password</button>
-                        <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
-                            locals.account_id %>"
-                            <% } %>>
+                            <div>
+                                <p>Changing your password will change your current one. New password must include at
+                                    least
+                                    12 characters, at least 1 uppercase character, 1 number,
+                                    and 1 special character.</p>
+                            </div>
+
+                            <label for="password">Password</label><br>
+
+                            <input type="password" id="password" name="account_password"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
 
 
-                    </form>
+                            <button type="submit">Update Password</button>
+                            <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
+                                locals.account_id %>"
+                                <% } %>>
+
+
+                        </form>
+
+                    </main>
+
+
+
+                    <script src="../../js/account-update.js"></script>

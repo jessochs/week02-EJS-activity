@@ -84,6 +84,7 @@ picture {
 
 body {
   position: relative;
+  
 }
 
 /* Adjust the positioning for different screen sizes */
@@ -187,4 +188,31 @@ body {
 }
 .vehicle-detail {
   display: block;
+}
+
+main.accountManage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+main.accountChange {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+form, #updateAccount, #updatePassword {
+  display:grid;
+  max-width: 400px;
+  min-width: 300px;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 2px solid black;
+}
+legend {
+  font-weight: bolder;
 }

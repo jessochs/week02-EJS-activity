@@ -124,6 +124,18 @@ async function buildManagement(req, res, next) {
   })
 }
 
+  /* ****************************************
+*  Manage account and password view
+* *************************************** */
+async function accountManageView(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./account/update-account", {
+    title: "Update Account",
+    nav,
+    errors: null,
+  })
+}
+
 /* ***************************
  *  Edit Account
  * ************************** */
@@ -132,15 +144,15 @@ async function editAccount(req, res, next) {
  let nav = await utilities.getNav()
  const account_id = parseInt(req.params.account_id)
  const itemData = await accountModel.getAccountByAccountId(account_id)
- const name = `${itemData[0].account_firstname}` 
+  
  res.render("account/update-account", {
-  title: "Edit" + name + "Account",
+  title: "Edit Account",
   nav, 
   errors: null,
-  account_id: itemData[0].account_id,
-  account_firstname: itemData[0].account_firstname,
-  account_lastname: itemData[0].account_lastname,
-  account_email: itemData[0].account_email,
+  account_id: itemData.account_id,
+  account_firstname: itemData.account_firstname,
+  account_lastname: itemData.account_lastname,
+  account_email: itemData.account_email,
 
  })
 }
@@ -167,7 +179,7 @@ async function updateAccount(req, res, next) {
   if(result) {
     const name = result.account_firstname + " " + result.account_lastname
     req.flash("notice", `The ${name} account was successfully updated.`)
-    res.redirect("account/management")
+    res.redirect("/account")
   } else {
     const name = `${account_firstname}`
     req.flash("notice", "The update failed. Please try again.")
@@ -194,8 +206,8 @@ async function editPassword(req, res, next) {
     title: "Edit Password",
     nav,
     errors: null,
-    account_id: itemData[0].account_id,
-    account_password: itemData[0].account_password,
+    account_id: itemData.account_id,
+    account_password: itemData.account_password,
   })
 }
 
@@ -228,7 +240,7 @@ async function updatePassword(req, res, next) {
 
   if(result) {
     req.flash("notice", "Your password change was succcessful.")
-    res.redirect("account/management")
+    res.redirect("/account/")
   } else {
     req.flash("notice", "Password update failed, please try again.")
     res.status(501).render("account/update-account", {
@@ -253,4 +265,4 @@ async function accountLogout(req, res) {
 }
 
   
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, editAccount, updateAccount, editPassword, updatePassword, accountLogout }
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, accountManageView, editAccount, updateAccount, editPassword, updatePassword, accountLogout }

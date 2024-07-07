@@ -24,11 +24,14 @@ router.post(
   //route for inventory management view
   router.get("/invManagement", utilities.handleErrors(invController.viewManagement))
 
+//route for account management
+router.get("/account-manage", utilities.handleErrors(accountController.accountManageView))
+
   //edit account route
   router.get("/edit/:account_id", utilities.handleErrors(accountController.editAccount))
 
   //update account route
-  router.post("/update-account/", utilities.handleErrors(accountController.updateAccount))
+  router.post("/update-account/", regValidate.accountRules(), regValidate.checkAccountData, utilities.handleErrors(accountController.updateAccount))
 
 
 //edit password route
@@ -36,7 +39,7 @@ router.get("/editPass/:account_id", utilities.handleErrors(accountController.edi
 
 //update password route
 
-router.post("/update-password", utilities.handleErrors(accountController.updatePassword))
+router.post("/update-password/", regValidate.passwordRules(), regValidate.checkPasswordData, utilities.handleErrors(accountController.updatePassword))
 
 //route to logout
  router.get("/logout", utilities.handleErrors(accountController.accountLogout))

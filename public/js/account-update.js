@@ -6,6 +6,6 @@ const form = document.querySelector("#updateAccount")
 
     const formPass = document.querySelector("#updatePassword")
     form.addEventListener("change", function () {
-      const updateBtn = document.querySelector("button")
+      const updateBtn = document.querySelector("#change")
       updateBtn.removeAttribute("disabled")
     })

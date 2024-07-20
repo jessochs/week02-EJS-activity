@@ -120,7 +120,7 @@ async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
   
   const data = await accountModel.getReviewByAccountId(res.locals.accountData.account_id);
-  let review = await utilities.buildAccountReview(data, res);
+  let review = await utilities.buildAccountReview(data);
   
 
   // console.log('review data', data);

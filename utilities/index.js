@@ -209,20 +209,26 @@ Util.buildReviews = async function (data) {
 /* **************************************
 * Build account reviews
 * ************************************ */
-Util.buildAccountReview = async function (data, res) {
+Util.buildAccountReview = async function (data) {
   let reviews = "<p>";
   let reviewNum = 1;
   for (const review of data) {
-    let reviewData = res.locals.accountData;
+    
     let formattedDate = review.review_date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
     let title = reviewNum + '.' + ' ' + "Reviewed the " + ' ' + review.inv_year + " " + review.inv_model + ' ' + "on " + formattedDate 
-    reviews += title;
+    reviews += title
+    reviews += ' | '
+    reviews += '<a href="account/edit-review">Edit</a>'
+    reviews += ' | '
+    reviews += '<a href="account/delete-review">Delete</a>'
     reviews += "</p>"
+    
     reviewNum++;
+    
   }
   return reviews
   

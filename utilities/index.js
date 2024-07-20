@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -79,12 +80,14 @@ Util.buildVehicleDetail = async function(vehicle) {
     vehicleDetail += '    <p>Mileage: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles || 0) + ' miles</p>';
     vehicleDetail += '  </div>';
     vehicleDetail += '</div>';
+    
   } else {
     vehicleDetail = '<p class="notice">Sorry, no vehicle details available.</p>';
   }
 
   return vehicleDetail;
 };
+
 
 
 /* ****************************************
@@ -177,5 +180,53 @@ Util.checkLogin = (req, res, next) => {
     res.redirect("account/login")
   }
 }
+
+/* **************************************
+* Build review 
+* ************************************ */
+Util.buildReviews = async function (data) {
+  let reviews = "<ul class='reviews'>";
+
+  for (const review of data) {
+    let accountData = await accountModel.getAccountByAccountId(review.account_id);
+    let screenName = accountData.account_firstname[0] + accountData.account_lastname;
+    let formattedDate = review.review_date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    reviews += "<li>";
+    reviews += "<h4>" + screenName + " wrote on " + formattedDate + "</h4>";
+    reviews += "<p>" + review.review_text + "</p>";
+    reviews += "</li>";
+  }
+
+  reviews += "</ul>";
+  return reviews;
+};
+
+/* **************************************
+* Build account reviews
+* ************************************ */
+Util.buildAccountReview = async function (data, res) {
+  let reviews = "<p>";
+  let reviewNum = 1;
+  for (const review of data) {
+    let reviewData = res.locals.accountData;
+    let formattedDate = review.review_date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    let title = reviewNum + '.' + ' ' + "Reviewed the " + ' ' + review.inv_year + " " + review.inv_model + ' ' + "on " + formattedDate 
+    reviews += title;
+    reviews += "</p>"
+    reviewNum++;
+  }
+  return reviews
+  
+}
+
 
 module.exports = Util

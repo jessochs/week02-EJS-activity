@@ -9,7 +9,7 @@ const regValidate = require('../utilities/inventory-validation')
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
 //Route to build single vehile inventory view
-router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
+router.get("/detail/:inv_id", utilities.handleErrors(invController.buildByInventoryId));
 
 //route to view management
 router.get("/", utilities.handleErrors(invController.viewManagement));
@@ -34,5 +34,8 @@ router.post("/update/", regValidate.vehicleRules(), regValidate.checkVehicleUpda
 //delete route
 router.get("/delete/:inv_id", utilities.checkEmployeeAccess, utilities.handleErrors(invController.deleteVehicle))
 router.post("/delete/", utilities.handleErrors(invController.deleteVehicleData) )
+
+//add review route
+router.post("/review/:inv_id", utilities.handleErrors(invController.addReview))
 
 module.exports = router;

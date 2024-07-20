@@ -1,5 +1,6 @@
 const utilities = require("../utilities/");
 const accountModel = require("../models/account-model")
+const invModel = require("../models/inventory-model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
@@ -117,11 +118,20 @@ async function accountLogin(req, res) {
  * ************************************ */
 async function buildManagement(req, res, next) {
   let nav = await utilities.getNav()
+  
+  const data = await accountModel.getReviewByAccountId(res.locals.accountData.account_id);
+  let review = await utilities.buildAccountReview(data, res);
+  
+
+  // console.log('review data', data);
+
   res.render("account/management", {
     title: "Account Management",
     nav,
+    review,
     errors: null,
   })
+  
 }
 
   /* ****************************************
@@ -264,5 +274,6 @@ async function accountLogout(req, res) {
   res.send("Logout was successful")
 }
 
+
   
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, accountManageView, editAccount, updateAccount, editPassword, updatePassword, accountLogout }
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, accountManageView, editAccount, updateAccount, editPassword, updatePassword, accountLogout, }

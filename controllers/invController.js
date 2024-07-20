@@ -24,13 +24,15 @@ invCont.buildByClassificationId = async function (req, res, next) {
  *  Build inventory by single vehicle view
  * ************************** */
 invCont.buildByInventoryId = async function (req, res, next) {
-  const inv_id = req.params.inventoryId;
+  const inv_id = req.params.inv_id;
   const data = await invModel.getVehicleByInventoryId(inv_id);
   
   // Log the vehicle data to the console for debugging
   console.log('Vehicle data:', data);
 
   const detail = await utilities.buildVehicleDetail(data[0]);
+  const reviewdata = await invModel.getReviewsByInventoryId(inv_id)
+  const review = await utilities.buildReviews(reviewdata)
   let nav = await utilities.getNav();
   const make = data[0].inv_make;
   const model = data[0].inv_model;
@@ -40,6 +42,9 @@ invCont.buildByInventoryId = async function (req, res, next) {
     title: classname,
     nav,
     detail,
+    inv_id,
+    reviewdata,
+    review,
     errors: null,
   });
 };
@@ -318,6 +323,37 @@ invCont.deleteVehicleData = async function (req, res, next) {
     })
   }
 }
+
+/* ***************************
+ *  add review
+ * ************************** */
+invCont.addReview = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  let { review_text, inv_id, account_id } = req.body;
+  let result = await invModel.addReview(review_text, inv_id, account_id)
+
+  const singlepagedata = await invModel.getVehicleByInventoryId(inv_id)
+  const singlepageview = await utilities.buildVehicleDetail(singlepagedata)
+  const reviewdata = await invModel.getReviewsByInventoryId(inv_id)
+  const review = await utilities.buildReviews(reviewdata, res)
+
+  if (result) {
+    req.flash("notice", "Review added.");
+    res.redirect("/inv/detail/" + inv_id);
+  } else {
+    req.flash("notice", "Sorry, the review failed.");
+    res.status(501).render("./inventory/vehicle-details", {
+      title: singlepagedata.inv_make + " " + singlepagedata.inv_model,
+      nav,
+      inv_id,
+      singlepageview,
+      reviewdata,
+      review,
+      errors: null,
+    });
+  }
+};
+
 
 
 

@@ -101,4 +101,33 @@ async function updatePassword(
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccount, updatePassword}
+/* *****************************
+* get account reviews by account id
+* ***************************** */
+async function getReviewByAccountId(account_id) {
+  try {
+    const sql = `SELECT review.review_text, review.review_date, review.account_id, inventory.inv_make, inventory.inv_model, inventory.inv_year FROM review JOIN inventory ON review.inv_id = inventory.inv_id WHERE review.account_id = $1`;
+    const data = await pool.query(sql, [account_id]);
+    console.log("get reviews by account id data: ", data.rows);
+    return data.rows;
+  } catch (error) {
+    console.error("getReviewByAccountId error " + error);
+  }
+}
+
+/* *****************************
+* get account reviews by review id
+* ***************************** */
+async function getReviewByReviewId(review_id) {
+  try {
+    const data = await pool.query(
+      "SELECT * FROM review WHERE review_id = $1", [review_id]
+    )
+    return data.rows
+  } catch(error) {
+    console.error("getReview by id error" + error)
+  }
+
+}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccount, updatePassword, getReviewByAccountId, getReviewByReviewId}

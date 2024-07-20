@@ -106,7 +106,7 @@ async function updatePassword(
 * ***************************** */
 async function getReviewByAccountId(account_id) {
   try {
-    const sql = `SELECT review.review_text, review.review_date, review.account_id, inventory.inv_make, inventory.inv_model, inventory.inv_year FROM review JOIN inventory ON review.inv_id = inventory.inv_id WHERE review.account_id = $1`;
+    const sql = `SELECT review.review_id, review.review_text, review.review_date, review.account_id, inventory.inv_make, inventory.inv_model, inventory.inv_year FROM review JOIN inventory ON review.inv_id = inventory.inv_id WHERE review.account_id = $1`;
     const data = await pool.query(sql, [account_id]);
     console.log("get reviews by account id data: ", data.rows);
     return data.rows;
@@ -130,4 +130,24 @@ async function getReviewByReviewId(review_id) {
 
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccount, updatePassword, getReviewByAccountId, getReviewByReviewId}
+/* ***************************
+ *  Update Review
+ * ************************** */
+async function updateReview(review_id, review_text) {
+
+  try {
+    const sql = 
+      "UPDATE public.review SET review_text = $1 WHERE review_id = $2 RETURNING *"
+      const data = await pool.query(sql, [
+        review_text,
+        review_id
+      ])
+      return data.rows[0]
+  } catch(error) {
+    console.error("review update error:" + error)
+  }
+  
+
+}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccount, updatePassword, getReviewByAccountId, getReviewByReviewId, updateReview}

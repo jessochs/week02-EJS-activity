@@ -44,6 +44,10 @@ router.post("/update-password/", regValidate.passwordRules(), regValidate.checkP
 //route to logout
  router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 
+//edit/update review routes
+router.get("/edit-review/:review_id", utilities.handleErrors(accountController.editReview))
+router.post("/edit-review", utilities.handleErrors(accountController.updateReview))
 
-
+//delete review
+router.get("/delete/:review_id", utilities.handleErrors(accountController.deleteReview))
 module.exports = router;

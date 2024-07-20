@@ -222,9 +222,9 @@ Util.buildAccountReview = async function (data) {
     let title = reviewNum + '.' + ' ' + "Reviewed the " + ' ' + review.inv_year + " " + review.inv_model + ' ' + "on " + formattedDate 
     reviews += title
     reviews += ' | '
-    reviews += '<a href="account/edit-review">Edit</a>'
+    reviews += `<a href="/account/edit-review/${review.review_id}">Edit</a>`
     reviews += ' | '
-    reviews += '<a href="account/delete-review">Delete</a>'
+    reviews += `<a href="/account/delete/${review.review_id}">Delete</a>`
     reviews += "</p>"
     
     reviewNum++;

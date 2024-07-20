@@ -274,6 +274,170 @@ async function accountLogout(req, res) {
   res.send("Logout was successful")
 }
 
+/* ***************************
+ *  Edit Review
+ * ************************** */
+async function editReview(req, res, next) {
+  let nav = await utilities.getNav()
+  const review_id = parseInt(req.params.review_id)
+  const reviewData = await accountModel.getReviewByReviewId(review_id)
+  console.log('ReviewData', reviewData)
+  
+  const invData = await invModel.getVehicleByInventoryId(reviewData[0].inv_id)
+  console.log('inventory data', invData)
+  const name = 'Edit' + ' ' + invData[0].inv_year + ' ' + invData[0].inv_model;
+  
+  let formattedDate = reviewData[0].review_date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  res.render("account/edit-review", {
+    title: name,
+    nav,
+    reviewData,
+    errors: null,
+    review_id: reviewData[0].review_id,
+    formattedDate,
+    review_text: reviewData[0].review_text,
+    inv_id: reviewData[0].inv_id,
+    account_id: reviewData[0].account_id
+
+  })
+}
+
+/* ***************************
+ *  Update Review
+ * ************************** */
+async function updateRpeview(req, res) {
+  let nav = await utilities.getNav();
+  const reviewData = await accountModel.getReviewByReviewId(review_id)
+  let formattedDate = reviewData[0].review_date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  const {
+    review_id,
+    review_text,
+    
+  } = req.body
+
+  const result = await accountModel.updateReview(
+    review_id,
+    review_text,
+    
+  )
+
+  if(result) {
+    req.flash("notice", `Review ${result.review_id} was updated`)
+    res.redirect("/account/")
+  } else{
+    req.flash("notice", "The review update failed.")
+    res.status(501).render("/account/edit-review", {
+      title: "Edit Review",
+      nav,
+      errors: null,
+      reviewData,
+      review_id,
+      formattedDate,
+      review_text,
+      inv_id,
+      account_id,
+    })
+  }
+
+}
+
+async function updateReview(req, res) {
+  // Destructure the necessary variables from the request body
+  const { review_id, review_text, inv_id, account_id } = req.body;
+
+  // Initialize the nav variable
+  let nav;
+  try {
+    // Fetch the navigation data
+    nav = await utilities.getNav();
+
+    // Fetch the review data by review_id
+    const reviewData = await accountModel.getReviewByReviewId(review_id);
+
+    // Format the review date
+    let formattedDate = reviewData[0].review_date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    // Update the review in the database
+    const result = await accountModel.updateReview(review_id, review_text);
+
+    // Check if the update was successful
+    if (result) {
+      req.flash("notice", `Review ${review_id} was updated`);
+      res.redirect("/account/");
+    } else {
+      req.flash("notice", "The review update failed.");
+      res.status(501).render("account/edit-review", {
+        title: "Edit Review",
+        nav,
+        errors: null,
+        reviewData,
+        review_id,
+        formattedDate,
+        review_text,
+        inv_id,
+        account_id,
+      });
+    }
+  } catch (error) {
+    console.error("Error updating review:", error);
+    req.flash("notice", "An error occurred while updating the review.");
+    res.status(500).render("account/edit-review", {
+      title: "Edit Review",
+      nav,
+      errors: null,
+      reviewData: [],
+      review_id,
+      formattedDate: "",
+      review_text: "",
+      inv_id,
+      account_id,
+    });
+  }
+}
+
+/* ***************************
+ *  Delete review
+ * ************************** */
+async function deleteReview(req, res, next) {
+  let nav = utilities.getNav()
+
+  const review_id = parseInt(req.params.review_id)
+  const reviewData = accountModel.getReviewByReviewId(review_id)
+  console.log('Review Data', reviewData)
+  const invData = await invModel.getVehicleByInventoryId(reviewData[0].inv_id)
+  console.log('inventory data', invData)
+  const name = invData[0].inv_year + ' ' + invData[0].inv_model;
+  
+  let formattedDate = reviewData[0].review_date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  res.render("./account/delete", {
+    title: "Delete" + ' ' + name,
+    nav,
+    errors:null,
+    reviewData,
+    formattedDate,
+    // inv_id: reviewData[0].inv_id,
+    // review_id: reviewData[0].review_id,
+    // formattedDate: formattedDate,
+    // review_text: reviewData[0].review_text,
+  })
+}
+
 
   
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, accountManageView, editAccount, updateAccount, editPassword, updatePassword, accountLogout, }
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, accountManageView, editAccount, updateAccount, editPassword, updatePassword, accountLogout, editReview, updateReview, deleteReview}

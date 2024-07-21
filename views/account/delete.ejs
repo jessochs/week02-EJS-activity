@@ -24,25 +24,25 @@
 
       <label for="reviewDate">Review Date:</label>
     </div>
-    <div>
+    
       <input type="text" name="review_date" id="reviewDate" value="<%= formattedDate %>" readonly>
       <% if(locals.review_date) { %><%= locals.review_date %><% } %>
-    </div>
+    
 
     <div>
       <label for="review_text">Review:</label>
     </div>
-    <div>
+    
       <textarea name="review_text" id="review_text" cols="30" rows="10" minlength="4" readonly>
         <% if(locals.review_text) { %><%= locals.review_text %><% } %>
       </textarea>
-    </div>
+    
 
     <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
     <input type="hidden" name="account_id" value="<%= locals.account_id %>">
     <input type="hidden" name="review_id" value="<%= locals.review_id %>">
 
-    <div>
+    <div id="warning">
         <h4>This action is permanent! Do you wish to continue?</h4>
     </div>
 

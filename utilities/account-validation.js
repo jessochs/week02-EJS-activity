@@ -218,6 +218,43 @@ validate.passwordRules = () => {
       }
       next()
     }
+
+ /*  **********************************
+  *  Update review validation
+  * ********************************* */   
+ validate.reviewRules = () => {
+  return [
+    body("review_text")
+    .trim()
+    .escape()
+    .isLength({ min: 4, })
+    .withMessage("Review text is required."),
+
+  ]
+ }
+
+ /*  **********************************
+  *  Update review data validation
+  * ********************************* */
+ validate.checkReviewUpdateData = async (req, res, next) => {
+  const { review_id, review_text } = req.body
+
+  let errors = []
+  errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("/account/edit-review", {
+      title: "Edit review",
+      nav,
+      errors,
+      review_id,
+      review_text,
+    })
+    return
+  }
+  next()
+ }
   
   module.exports = validate
   

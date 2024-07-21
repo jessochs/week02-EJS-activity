@@ -46,8 +46,9 @@ router.post("/update-password/", regValidate.passwordRules(), regValidate.checkP
 
 //edit/update review routes
 router.get("/edit-review/:review_id", utilities.handleErrors(accountController.editReview))
-router.post("/edit-review", utilities.handleErrors(accountController.updateReview))
+router.post("/edit-review", regValidate.reviewRules(), regValidate.checkReviewUpdateData, utilities.handleErrors(accountController.updateReview))
 
 //delete review
 router.get("/delete/:review_id", utilities.handleErrors(accountController.deleteReview))
+router.post("/delete/", utilities.handleErrors(accountController.confirmDelete))
 module.exports = router;

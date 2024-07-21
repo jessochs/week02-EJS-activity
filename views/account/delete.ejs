@@ -15,7 +15,7 @@
    </ul>
   <% } %>
 
-  <form id="updateReview" action="/account/delete" method="post">
+  <form id="updateReview" action="/account/delete/" method="post">
     <div>
       <h3>Add Review</h3>
     </div>
@@ -40,7 +40,7 @@
 
     <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
     <input type="hidden" name="account_id" value="<%= locals.account_id %>">
-    <input type="hidden" name="inv_id" value="<%= locals.review_id %>">
+    <input type="hidden" name="review_id" value="<%= locals.review_id %>">
 
     <div>
         <h4>This action is permanent! Do you wish to continue?</h4>

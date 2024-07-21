@@ -150,4 +150,18 @@ async function updateReview(review_id, review_text) {
 
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccount, updatePassword, getReviewByAccountId, getReviewByReviewId, updateReview}
+/* ***************************
+ *  Delete Review
+ * ************************** */
+async function deleteReview(review_id) {
+  try{
+    const sql =
+    "DELETE FROM review WHERE review_id = $1";
+    const data = await pool.query(sql, [review_id])
+    return data
+  } catch(error) {
+    new Error("Delete review error")
+  }
+}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateAccount, updatePassword, getReviewByAccountId, getReviewByReviewId, updateReview, deleteReview}

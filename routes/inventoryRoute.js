@@ -4,6 +4,7 @@ const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController");
 const regValidate = require('../utilities/inventory-validation')
+const revValidate = require('../utilities/account-validation')
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
@@ -36,6 +37,6 @@ router.get("/delete/:inv_id", utilities.checkEmployeeAccess, utilities.handleErr
 router.post("/delete/", utilities.handleErrors(invController.deleteVehicleData) )
 
 //add review route
-router.post("/review/:inv_id", utilities.handleErrors(invController.addReview))
+router.post("/review/:inv_id", revValidate.reviewRules(), utilities.handleErrors(invController.addReview))
 
 module.exports = router;

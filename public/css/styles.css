@@ -81,3 +81,18 @@ a {
 a:hover {
   color: blue;
 }
+
+.about {
+  max-width: 500px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+img {
+  max-width: 100%;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+  /* padding: 10px; */
+  /* border: solid black; */
+}

@@ -1,0 +1,21 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %> 
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<ul>
+    <li><a href="https://github.com/jessochs/employee-managment">Employee Management Project Using Classes and Inheritance</a> </li>
+    <li><a href="https://github.com/jessochs/cse210-hw">Various C# Projects</a> </li>
+</ul>

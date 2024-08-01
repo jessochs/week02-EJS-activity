@@ -1,0 +1,44 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+
+        <%- messages() %>
+
+            <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+
+
+                    <picture>
+                        
+                    </picture>
+                    <section class="about">
+                        <p>Hi! My name is Jessica Facer Ochs. I am a senior at BYU-Idaho and I'm majoring in Software
+                            Development. Although I didn't have any experience before entering this program, I have been
+                            pleasantly surprised my how much I have learned and progressed. I am very open to learning
+                            new skills, techiniques, and languages when I can. </p>
+                        
+                            <p>I grew up in Idaho and lived
+                            there until I was 22. I loved all of the adventures that Idaho provided, but I eventually
+                            decided it was time to thaw out in Arizona. I've been married for five years, and we love
+                            traveling together. My favorite place so far
+                            has been the Amalfi Coast, and I can't wait to return one day. For fun I like to clean and
+                            organize while I listen to true crime podcasts. If you've never listened to CrimeJunkies, you
+                            need to check it out! I also love to bake when I have spare time, and I am always looking
+                            for new recipes to try.</p>
+
+                    </section>
+                    <section class="contact">
+                        <h2>Contact Me</h2>
+                        <p>208-403-5775</p>
+                        <p>ochsjessica17@gmail.com</p>
+                        <p></p>
+                    </section>

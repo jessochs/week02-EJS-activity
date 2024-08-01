@@ -53,172 +53,31 @@ nav ul li a{
   color: white;
 }
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+  margin: 0;
   font-family: "Hedvig Letters Serif", sans-serif;
-  display: grid;
-  grid-template-columns: 1fr;
-}
-.delorean {
-  background-color: transparent;
-  color: rgb(188, 1, 1);
-  font-weight: bolder;
-}
-.delorean button {
-  background-color: rgb(188, 1, 1);
-  color: white;
-  
-}
-.delorean {
-  position: absolute;
-  z-index: 1;
-  background-color: rgb(232, 232, 232, 0.7);
-  padding: 20px;
-}
-
-.picture-container {
-  position: relative;
-}
-
-picture {
-  position: relative;
-}
-
-body {
-  position: relative;
   
 }
 
-/* Adjust the positioning for different screen sizes */
-@media (max-width: 768px) {
-  .delorean {
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-  }
-}
-
-@media (min-width: 500px) {
-  .delorean {
-      top: 200px;
-      left: 100px;
-  }
-}
-
-
-.upgrades {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 10px;
-  background-color: white;
-  
-}
-.reviews {
-  grid-column: 1;
-}
-#first img, #second img, #third img, #fourth img {
-  border: solid rgb(57, 55, 55);
-  border-radius: 4px;
-  padding: 5px;
-  background-color: white;
-}
-.upgrades div{
-  background-color: rgb(188, 1, 1);
-  justify-self: center;
-  padding: 10px;
-  width: 50%;
-}
-.upgrades div a{
-  color: white;
+h1 {
   text-align: center;
 }
-#first {
-  grid-column: 1;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
-#second{
-  grid-column: 2;
+li {
+  margin: 5px 0;
 }
-/* inventory pages */
-
-#inv-display {
-  display: grid;
-  grid-template-columns:1fr 1fr ;
-  flex-wrap: wrap;  
-  padding: 0; 
-  margin: 0; 
-  list-style: none; 
-  font-family: "Hedvig Letters Serif", sans-serif;
-}
-
-
-#inv-display li {
-    flex: 1 1 calc(33.333% - 20px); 
-    box-sizing: border-box; 
-    margin: 10px; 
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    border: 1px solid #ccc;
-    padding: 10px; 
-}
-
-#inv-display li img {
-    max-width: 100%; 
-    height: auto; 
-}
-
-#inv-display .namePrice {
-    text-align: center; 
-    width: 100%; 
-}
-
-#inv-display .namePrice hr {
-    width: 100%; 
-}
-
-#inv-display .namePrice h2 {
-    margin: 10px 0; 
-}
-
-#inv-display .namePrice span {
-    font-weight: bold; 
-    color: #333; 
-}
-#inv-display a {
+a {
   text-decoration: none;
-  color: black;
+  color: #000;
+  font-size: larger;
 }
-.vehicle-detail {
-  display: block;
-}
-
-main.accountManage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-main.accountChange {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-form, #updateAccount, #updatePassword {
-  display:grid;
-  max-width: 400px;
-  min-width: 300px;
-  margin-bottom: 30px;
-  padding: 20px;
-  border: 2px solid black;
-}
-legend {
-  font-weight: bolder;
-}
-
-#warning {
-  background-color: hsla(0, 100%, 50%, 0.5);
-  margin: 5px;
-  padding: 5px;
+a:hover {
+  color: blue;
 }

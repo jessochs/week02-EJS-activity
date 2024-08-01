@@ -1,0 +1,24 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %> 
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<ul>
+    <li><a href="https://github.com/jessochs/MvcMovie">MVC Movie App</a> </li>
+    <li><a href="https://github.com/jessochs/Notes">Notes App Using Xamarin</a> </li>
+    <li><a href="https://github.com/jessochs/ContosoUniversity">University App</a> </li>
+    <li><a href="https://github.com/jessochs/RazorPagesMovie">Razor Page App</a> </li>
+
+</ul>
